@@ -1,0 +1,11 @@
+server:
+    port: ":4444"
+database:
+#    master: "master_g:d3v3l0p8015@tcp(34.87.44.167:3306)/master_g_neo_genesis"
+    master: "PharmanetBois:d3v3l0p8015@tcp(13.250.197.171:3306)/test"
+api:
+    shope: "https://partner.shopeemobile.com/api/v1/orders/get_escrow_detail"
+    shope1: "https://partner.shopeemobile.com/api/v1/shop/get"
+    shope2: "https://partner.shopeemobile.com/api/v1/wallet/transaction/list"
+firebase:
+    projectID: "mutasishopee"
