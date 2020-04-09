@@ -16,21 +16,20 @@ import (
 
 // Data object for data layer needs
 type Data struct {
-	client   *httpclient.Client
-	shopeURL string
+	client    *httpclient.Client
+	shopeURL  string
 	shopeURL1 string
 	shopeURL2 string
-	authURL  string
+	authURL   string
 }
 
 // New return an ads resource
 func New(client *httpclient.Client, shopeURL string, shopeURL1 string, shopeURL2 string) Data {
 	d := Data{
-		client:   client,
-		shopeURL: shopeURL,
-		shopeURL1:shopeURL1,
-		shopeURL2:shopeURL2,
-
+		client:    client,
+		shopeURL:  shopeURL,
+		shopeURL1: shopeURL1,
+		shopeURL2: shopeURL2,
 	}
 
 	return d
@@ -63,7 +62,7 @@ func (d Data) GetDataShope(ctx context.Context) (interface{}, error) {
 
 	json1 := shopeEntity.Shope{
 
-		PartnerID:       844464, // ==> Di Sini untuk Partner ID
+		PartnerID:       844464,    // ==> Di Sini untuk Partner ID
 		ShopID:          114789399, // ==> Di Sini Untuk SHOP ID
 		Timestamp:       time.Now().Unix(),
 		ReleaseTimeFrom: "2020-01-16",
@@ -79,7 +78,6 @@ func (d Data) GetDataShope(ctx context.Context) (interface{}, error) {
 	headers.Set("Content-Type", "application/json")
 	fmt.Println(headers)
 	fmt.Println(json1)
-
 
 	if err != nil {
 		return result, errors.Wrap(err, "[DATA][GetDataShope]")
@@ -109,9 +107,9 @@ func (d Data) GetDataShope2(ctx context.Context) (interface{}, error) {
 
 	json1 := shopeEntity.Shope{
 
-		PartnerID:       844464, // ==> Di Sini untuk Partner ID
-		ShopID:          114789399, // ==> Di Sini Untuk SHOP ID
-		Timestamp:       time.Now().Unix(),
+		PartnerID: 844464,    // ==> Di Sini untuk Partner ID
+		ShopID:    114789399, // ==> Di Sini Untuk SHOP ID
+		Timestamp: time.Now().Unix(),
 	}
 	json2, err := json.Marshal(json1)
 
@@ -139,7 +137,6 @@ func (d Data) GetDataShope2(ctx context.Context) (interface{}, error) {
 
 	return result, nil
 }
-
 
 //func (d Data) GetDataShopeTransaction(ctx context.Context, shop shopeEntity.Shope) (interface{}, error) {
 //	var (
@@ -189,7 +186,7 @@ func (d Data) GetDataShope2(ctx context.Context) (interface{}, error) {
 
 func (d Data) GetDataShopeTransaction(ctx context.Context, shop shopeEntity.Shope) (shopeEntity.MutasiShopee, error) {
 	var (
-		resp     shopeEntity.MutasiShopee
+		resp shopeEntity.MutasiShopee
 		//result   shopeEntity.TestShopee
 		endpoint = d.shopeURL2
 		err      error
@@ -211,7 +208,18 @@ func (d Data) GetDataShopeTransaction(ctx context.Context, shop shopeEntity.Shop
 	//fmt.Println(shop)
 
 	// ===> Di bawah ini untuk Key <===//
-	autho := d.GenerateSignature("bd656ab344c897c9a37e7230a9835ab7b826e608ec84f9ea63009d40bde7f9f9", shop, endpoint)
+	autho := d.GenerateSignature(shop.Api, shop, endpoint)
+	//bd656ab344c897c9a37e7230a9835ab7b826e608ec84f9ea63009d40bde7f9f9
+	//"partner_id":842234,
+	//	"shopid":121791179,
+
+	//2a2437155def6d2885e7ff7a14069d94d368199576bf4cedb5f42a0950ae7bb7
+	//"partner_id":844464,
+	//	"shopid":114789399,
+
+	//3e38516c57b3e46f06f9b5072428ff839bb6b41c69c1bd0933406a00c71a879f
+	//"partner_id":844783,
+	//	"shopid":181521989,
 
 	headers.Set("Authorization", autho)
 	headers.Set("Content-Type", "application/json")
