@@ -1,13 +1,13 @@
 package cron
 
 import (
+	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"log"
-	"shopeAPIDetail/internal/cron"
+	"shopeAPIDetail/internal/boot"
 )
 
 func main() {
-	if err := cron.CRON; err != nil {
-		log.Println("[CRON] failed to cron job due to " + err.Error())
+	if err := boot.CRON; err != nil {
+		fmt.Println("[CRON] failed to cron job due to " + err.Error())
 	}
 }

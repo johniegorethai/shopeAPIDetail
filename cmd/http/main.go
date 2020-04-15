@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-
 	if err := boot.HTTP(); err != nil {
 		fmt.Println("[HTTP] failed to boot http server due to " + err.Error())
 	}

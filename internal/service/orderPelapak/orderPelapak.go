@@ -311,7 +311,7 @@ func (s Service) InsertMutasiShopeeScheduled(ctx context.Context) (orderPelapakE
 			PaginationOffset:         0,
 			PaginationEntriesPerPage: 100,
 			CreateTimeFrom:           resultx.CreateTimes.Unix(),
-			//CreateTimeFrom:				1585717200,
+			//CreateTimeFrom: 1586577600,
 			CreateTimeTo: time.Now().Unix(),
 		}
 
@@ -358,40 +358,21 @@ func (s Service) InsertMutasiShopeeScheduled(ctx context.Context) (orderPelapakE
 
 		if len(indeksZ) > 1 {
 			s.data.InsertMutasiFirebaseHeader(ctx, shop.PartnerID)
-		}
 
-		fmt.Println("X nya ", indeksZ)
-		fmt.Println("Y nya ", indeksY)
+			fmt.Println("X nya ", indeksZ)
+			fmt.Println("Y nya ", indeksY)
 
-		for z := indeksZ[0]; z < len(results); z++ {
-			if len(indeksZ) == 1 {
-				break
-			}
+			//fmt.Println("len ", len(results))
 
-			//masih bermsalah di sini
-			fmt.Println("bb", len(results[z].TransactionList))
-
-			if z <= 0 {
-				for y := indeksY[0]; y < len(results[z].TransactionList); y++ {
-					tm := results[z].TransactionList[y].CreateTime
-					times := time.Unix(int64(tm), 0)
-					times.Format("2006-01-02 15:04:05")
-					fmt.Print(y)
-					results[z].TransactionList[y].CreateTimes = times
-
-					res, _ := s.data.InsertMutasiFirebase(ctx, orderPelapakEntity.TransactionList(results[z].TransactionList[y]), shop.PartnerID)
-
-					if err != nil {
-						return result, errors.Wrap(err, "[SERVICE][InsertMutasiShopee]")
-					}
-					result.TransactionList = append(result.TransactionList, res)
+			for z := indeksZ[0]; z <= indeksZ[1]; z++ {
+				if len(indeksZ) == 1 {
+					break
 				}
-			} else if z > 0 {
-				for y := 0; y < len(results[z].TransactionList); y++ {
-					if z == indeksZ[1] && y == indeksY[1]+1 {
-						fmt.Println("break")
-						break
-					} else {
+				//masih bermsalah di sini
+				fmt.Println("bb", len(results[z].TransactionList))
+
+				if z <= 0 {
+					for y := indeksY[0]; y < len(results[z].TransactionList); y++ {
 						tm := results[z].TransactionList[y].CreateTime
 						times := time.Unix(int64(tm), 0)
 						times.Format("2006-01-02 15:04:05")
@@ -404,6 +385,26 @@ func (s Service) InsertMutasiShopeeScheduled(ctx context.Context) (orderPelapakE
 							return result, errors.Wrap(err, "[SERVICE][InsertMutasiShopee]")
 						}
 						result.TransactionList = append(result.TransactionList, res)
+					}
+				} else if z > 0 {
+					for y := 0; y < len(results[z].TransactionList); y++ {
+						if z == indeksZ[1] && y == indeksY[1]+1 {
+							fmt.Println("break")
+							break
+						} else {
+							tm := results[z].TransactionList[y].CreateTime
+							times := time.Unix(int64(tm), 0)
+							times.Format("2006-01-02 15:04:05")
+							fmt.Print(y)
+							results[z].TransactionList[y].CreateTimes = times
+
+							res, _ := s.data.InsertMutasiFirebase(ctx, orderPelapakEntity.TransactionList(results[z].TransactionList[y]), shop.PartnerID)
+
+							if err != nil {
+								return result, errors.Wrap(err, "[SERVICE][InsertMutasiShopee]")
+							}
+							result.TransactionList = append(result.TransactionList, res)
+						}
 					}
 				}
 			}
