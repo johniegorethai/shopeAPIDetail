@@ -12,8 +12,8 @@ import (
 
 	shopeData "shopeAPIDetail/internal/data/shope"
 
-	orderPelapakData "shopeAPIDetail/internal/data/orderPelapak"
-	orderPelapakService "shopeAPIDetail/internal/service/orderPelapak"
+	orderPelapakData "shopeAPIDetail/internal/data/mutasiShopee"
+	orderPelapakService "shopeAPIDetail/internal/service/mutasiShopee"
 )
 
 // CRON will auto load configuration, do dependency injection and then start the CRON Job

@@ -52,13 +52,13 @@ func WithConfigFile(file string) Option {
 func getDefaultConfigFile() string {
 	var (
 		repoPath   = filepath.Join(os.Getenv("GOPATH"), "src/shopeAPIDetail")
-		configPath = filepath.Join(repoPath, "files/etc/orderPelapak/orderPelapak.environment.yaml")
+		configPath = filepath.Join(repoPath, "files/etc/mutasiShopee/mutasiShopee.environment.yaml")
 		env        = os.Getenv("ENV")
 	)
 
 	if env != "" {
 		if env == envStaging {
-			configPath = "./orderPelapak.environment.yaml"
+			configPath = "./mutasiShopee.environment.yaml"
 		}
 	}
 	return configPath

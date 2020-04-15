@@ -1,4 +1,4 @@
-package orderPelapak
+package mutasiShopee
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	orderEntity "shopeAPIDetail/internal/entity/orderPelapak"
+	orderEntity "shopeAPIDetail/internal/entity/mutasiShopee"
 	userEntity "shopeAPIDetail/internal/entity/shope"
 	"shopeAPIDetail/pkg/response"
 )
@@ -78,7 +78,7 @@ func (h *Handler) OrderPelapakHandler(w http.ResponseWriter, r *http.Request) {
 		json.Unmarshal(rBody, &pagination)
 		if _, x := r.URL.Query()["type"]; x {
 			_type = r.FormValue("type")
-			if _type == "orderPelapak" {
+			if _type == "mutasiShopee" {
 				fmt.Println("Tes")
 				result1, err = h.orderPelapakSvc.GetAllOrderPelapak(context.Background())
 				fmt.Println("resutlnya", result1)

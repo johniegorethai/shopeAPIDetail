@@ -1,4 +1,4 @@
-package orderPelapak
+package mutasiShopee
 
 import (
 	"context"
@@ -8,7 +8,7 @@ import (
 	"shopeAPIDetail/pkg/errors"
 	"time"
 
-	orderPelapakEntity "shopeAPIDetail/internal/entity/orderPelapak"
+	orderPelapakEntity "shopeAPIDetail/internal/entity/mutasiShopee"
 	userEntity "shopeAPIDetail/internal/entity/shope"
 )
 

@@ -11,10 +11,10 @@ import (
 
 	shopeData "shopeAPIDetail/internal/data/shope"
 
-	orderPelapakData "shopeAPIDetail/internal/data/orderPelapak"
+	orderPelapakData "shopeAPIDetail/internal/data/mutasiShopee"
 	orderPelapakServer "shopeAPIDetail/internal/delivery/http"
-	orderPelapakHandler "shopeAPIDetail/internal/delivery/http/orderPelapak"
-	orderPelapakService "shopeAPIDetail/internal/service/orderPelapak"
+	orderPelapakHandler "shopeAPIDetail/internal/delivery/http/mutasiShopee"
+	orderPelapakService "shopeAPIDetail/internal/service/mutasiShopee"
 )
 
 // HTTP will load configuration, do dependency injection and then start the HTTP server
@@ -26,8 +26,8 @@ func HTTP() error {
 		sh    *orderPelapakHandler.Handler // BridgingProduct domain handler
 		cfg   *config.Config               // Configuration object
 		sp    shopeData.Data
-		fc  *firebaseclient.Client // Firebase initiation
-		httpc *httpclient.Client // HTTP Client
+		fc    *firebaseclient.Client // Firebase initiation
+		httpc *httpclient.Client     // HTTP Client
 	)
 
 	err := config.Init()
@@ -49,9 +49,9 @@ func HTTP() error {
 
 	httpc = httpclient.NewClient()
 
-	sp = shopeData.New(httpc, cfg.API.Shope,cfg.API.Shope1, cfg.API.Shope2)
+	sp = shopeData.New(httpc, cfg.API.Shope, cfg.API.Shope1, cfg.API.Shope2)
 	// BridgingProduct domain init
-	sd = orderPelapakData.New(db,fc)
+	sd = orderPelapakData.New(db, fc)
 	ss = orderPelapakService.New(sd, sp)
 	sh = orderPelapakHandler.New(ss)
 

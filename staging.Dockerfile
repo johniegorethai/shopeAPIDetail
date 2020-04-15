@@ -29,6 +29,6 @@ ENV VERSION="1.0.1"
 ENV TZ="Asia/Jakarta"
 RUN apk add --no-cache tzdata
 COPY --from=builder /go/src/shopeAPIDetailh/main /
-COPY --from=builder /go/src/shopeAPIDetail/files/etc/orderPelapak/orderPelapak.staging.yaml /
+COPY --from=builder /go/src/shopeAPIDetail/files/etc/mutasiShopee/mutasiShopee.staging.yaml /
 EXPOSE 4444
 ENTRYPOINT /main

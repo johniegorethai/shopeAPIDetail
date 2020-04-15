@@ -1,4 +1,4 @@
-package orderPelapak
+package mutasiShopee
 
 import (
 	"cloud.google.com/go/firestore"
@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"time"
 
-	orderPelapakEntity "shopeAPIDetail/internal/entity/orderPelapak"
+	orderPelapakEntity "shopeAPIDetail/internal/entity/mutasiShopee"
 )
 
 type (
